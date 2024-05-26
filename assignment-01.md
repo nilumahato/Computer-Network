@@ -1,4 +1,4 @@
-# Computer-Network
+# Assignment 01
 Screenshot of ifconfig :
 ![Screenshot from 2024-05-26 08-31-57](https://github.com/nilumahato/Computer-Network/assets/52632464/fa4f954f-ae23-4fb5-a5a1-2fd45be190bc)
 
