@@ -34,6 +34,7 @@ This markdown shows how to capture and analyze a file upload using Wireshark.
    - Select "Follow" > "TCP Stream".
 
    ![Follow TCP Stream](../../Images/FileuploadCapture3.png)
+   ![Follow TCP Stream](../../Images/FileuploadCapture4.png)
 
    - This will display all the packets exchanged between the client and the server during the file upload.
    - Below we can see that there are altogether 205 client packets and 1 server packet.
@@ -44,7 +45,7 @@ This markdown shows how to capture and analyze a file upload using Wireshark.
    - You can view different TCP segments lenght and starting and ending bytes transfered from the TCP layer in the window pane.
    - Observe the sequence numbers and the length of each segment to understand how the file was divided.
 
-   ![TCP Stream View](..//Images/FileuploadCapture4.png)
+   ![TCP Stream View](../../Images/FileuploadCapture5.png)
 
    - Close the TCP stream view to return to the main Wireshark window.
    - Use the filter `tcp.stream eq <stream_number>` (replace `<stream_number>` with the actual stream number found in the TCP stream view) to isolate the specific TCP stream for the file upload.
@@ -67,6 +68,8 @@ By following these steps, you can capture and analyze how a file is uploaded ove
 
 - **TCP Stream View**
   ![TCP Stream View](../../Images/FileuploadCapture4.png)
+  ![TCP Stream View](../../Images/FileuploadCapture5.png)
+  
 
 ## Notes
 
