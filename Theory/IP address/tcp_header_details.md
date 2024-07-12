@@ -1,3 +1,4 @@
+# Computer Network Assignment
 
 ## Question
 How many bytes is the TCP header? What are the different fields? How are the values set?
@@ -65,9 +66,8 @@ The TCP header consists of several fields, which are outlined below:
 
 Below is an illustration of a TCP header with field sizes:
 
-![!\[alt text\](https://www.lifewire.com/thmb/irn835md4Hf2FmoEbh1rdAVNjTs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tcp-headers-f2c0881ea4c94e919794b7c0677ab90a.jpg)]
+![TCP Header](https://www.lifewire.com/thmb/irn835md4Hf2FmoEbh1rdAVNjTs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tcp-headers-f2c0881ea4c94e919794b7c0677ab90a.jpg)
 
 ### Conclusion
 
 The TCP header is crucial for establishing a reliable connection between devices in a network. Each field plays a vital role in ensuring that data is transmitted accurately and efficiently.
-
