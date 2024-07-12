@@ -65,7 +65,7 @@ The TCP header consists of several fields, which are outlined below:
 
 Below is an illustration of a TCP header with field sizes:
 
-![alt text](tcp-headers-f2c0881ea4c94e919794b7c0677ab90a.webp)
+![!\[alt text\](https://www.lifewire.com/thmb/irn835md4Hf2FmoEbh1rdAVNjTs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tcp-headers-f2c0881ea4c94e919794b7c0677ab90a.jpg)]
 
 ### Conclusion
 
