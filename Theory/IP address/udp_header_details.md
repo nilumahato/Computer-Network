@@ -1,4 +1,3 @@
-
 ## Question
 How many bytes is the UDP header? What are the different fields? How are the values set?
 
@@ -41,7 +40,8 @@ The UDP header consists of four fields:
 
 Below is an illustration of a UDP header with field sizes:
 
-![alt text](https://notes.shichao.io/tcpv1/figure_10-2.png)
+![UDP Header](https://notes.shichao.io/tcpv1/figure_10-2.png)
+
 ### Conclusion
 
 The UDP header is a simple, fixed-size structure that facilitates fast and efficient data transmission without the overhead of connection management. Each field has a specific purpose in ensuring that data is sent correctly.
