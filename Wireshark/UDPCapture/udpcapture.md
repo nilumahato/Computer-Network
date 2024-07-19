@@ -33,6 +33,12 @@ This markdown shows how to capture and analyze a UDP packet using Wireshark.
    - Click on the UDP packet to view its details in the lower pane of Wireshark.
 
    ![Inspect UDP Packet](../../Images/UDPCapture3.png)
+   
+   ![Inspect UDP Packet](../../Images/UDPCapture4.png)
+   
+   ![Inspect UDP Packet](../../Images/UDPCapture5.png)
+   
+   ![Inspect UDP Packet](../../Images/UDPCapture6.png)
 
 ## Analyzing the UDP Packet
 
@@ -107,6 +113,12 @@ By following these steps, you can capture and analyze UDP packets over the netwo
 
 - **Inspect UDP Packet**
 ![Inspect UDP Packet](../../Images/UDPCapture3.png)
+
+   ![Inspect UDP Packet](../../Images/UDPCapture4.png)
+   
+   ![Inspect UDP Packet](../../Images/UDPCapture5.png)
+   
+   ![Inspect UDP Packet](../../Images/UDPCapture6.png)
 
 ## Notes
 
