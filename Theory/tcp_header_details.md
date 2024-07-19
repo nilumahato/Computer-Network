@@ -1,5 +1,3 @@
-# Computer Network Assignment
-
 ## Question
 How many bytes is the TCP header? What are the different fields? How are the values set?
 
