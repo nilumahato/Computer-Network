@@ -24,22 +24,18 @@ This markdown shows how to capture and analyze a UDP packet using Wireshark.
 3. **Locate the UDP Packet**
 
    - Identify the UDP packet of interest in the captured traffic.
-   - You can sort by Protocol column to locate UDP packets easily.
+   - You can sort by the Protocol column to locate UDP packets easily.
 
    ![UDP Packet](../../Images/UDPCapture2.png)
 
 4. **Inspect the UDP Packet**
 
    - Click on the UDP packet to view its details in the lower pane of Wireshark.
-
+   
    ![Inspect UDP Packet](../../Images/UDPCapture3.png)
-   
    ![Inspect UDP Packet](../../Images/UDPCapture4.png)
-   
    ![Inspect UDP Packet](../../Images/UDPCapture5.png)
-   
    ![Inspect UDP Packet](../../Images/UDPCapture6.png)
-
    ![Inspect UDP Packet](../../Images/UDPCapture7.png)
 
 ## Analyzing the UDP Packet
@@ -98,9 +94,6 @@ This markdown shows how to capture and analyze a UDP packet using Wireshark.
 
 c402410046c10635ce410000000000004de74236ad7f1ac88d82bedc6307c9c343169182caba3cf6b041a4915d64af19290c2046495940e2d98f5da1bdc4ef1e3039cd6de644148e6f0fff6dc20e3ef803ae5efb
 
-markdown
-
-
 ## Summary
 
 By following these steps, you can capture and analyze UDP packets over the network. This analysis includes details about the Ethernet, IP, and UDP headers, as well as the data payload. This is useful for network troubleshooting and understanding data flow.
@@ -115,14 +108,10 @@ By following these steps, you can capture and analyze UDP packets over the netwo
 
 - **Inspect UDP Packet**
 ![Inspect UDP Packet](../../Images/UDPCapture3.png)
-
-   ![Inspect UDP Packet](../../Images/UDPCapture4.png)
-   
-   ![Inspect UDP Packet](../../Images/UDPCapture5.png)
-   
-   ![Inspect UDP Packet](../../Images/UDPCapture6.png)
-
-   ![Inspect UDP Packet](../../Images/UDPCapture7.png)
+![Inspect UDP Packet](../../Images/UDPCapture4.png)
+![Inspect UDP Packet](../../Images/UDPCapture5.png)
+![Inspect UDP Packet](../../Images/UDPCapture6.png)
+![Inspect UDP Packet](../../Images/UDPCapture7.png)
 
 ## Notes
 
