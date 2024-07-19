@@ -27,4 +27,4 @@ DHCP Request packet is sent by the client by including the IP address i.e ```192
 As acknowledgement of request, DHCP server has sent all the parameters that are being assigned to the client. It was last step of assignment of IP address by DHCP server to the client.
 ![Ack](https://github.com/nilumahato/Computer-Network/assets/55197156/22e100ff-c20e-432c-a4f4-48e426f086c3)
 
-In this way, client is successfully assigned ```192.168.1.79``` as IP address ```192.168.1.254``` as dns server and ```255.255.255.0``` as subnet mask.
+In this way, client is successfully assigned ```192.168.1.79``` as IP address ```192.168.1.254``` as dns server and ```255.255.255.0``` as subnet mask. Further communication are carriedout accordingly.
