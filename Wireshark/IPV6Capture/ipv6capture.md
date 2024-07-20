@@ -2,7 +2,8 @@
 # Analysis of IPv6 Headers
 
 ## Capturing IPv6 Packets in Wireshark
-![image](file:///mnt/data/image.png)
+![Screenshot 2024-07-20 130602](https://github.com/user-attachments/assets/cc43d430-df9e-4f5b-88fe-c8463943d01d)
+
 We filtered IPv6 packets in Wireshark with the `ipv6` filter.
 
 ## Analyzing Headers
