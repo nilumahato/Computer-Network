@@ -3,8 +3,7 @@
 
 ## Capturing UDP Packets in Wireshark
 
-![image](https://github.com/user-attachments/assets/35ddc8a0-6efb-4642-934f-f302291cdecb)
-
+![image](https://github.com/user-attachments/assets/643d5b0e-b2fd-43b9-b05c-111f7b01d769)
 
 We filtered UDP packets in Wireshark with the `udp` filter.
 
