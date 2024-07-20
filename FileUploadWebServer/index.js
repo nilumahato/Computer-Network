@@ -33,6 +33,10 @@ function handleFileUpload(req, res) {
             // Get the current directory
             const __filename = fileURLToPath(import.meta.url);
             const __dirname = path.dirname(__filename);
+
+            if(!fs.existsSync(path.join(__dirname, 'uploads'))){
+                fs.mkdirSync(path.join(__dirname, 'uploads'));
+            }
             // Create the file path
             const filepath = path.join(__dirname, 'uploads', filename);
 
@@ -78,7 +82,7 @@ async function showUploadForm(res) {
     res.setHeader('Content-Type', 'text/html');
     res.write(`
         <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="file">
+            <input type="file" name="file" required=true>
             <button type="submit">Upload File</button>
         </form>
     `);
