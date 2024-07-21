@@ -1,4 +1,6 @@
+
 # What Happens When We Type `google.com` and Press Enter in the Browser?
+
 ![GoogleFlow](https://github.com/user-attachments/assets/650892db-407c-47c6-a200-7174840bfa01)
 
 ## Detailed Explanation of Each Step
@@ -20,7 +22,7 @@
 - The router checks its own DNS cache for the domain name.
 
 #### 5. NAT Table Entry Creation
-- The router creates an entry in the NAT (Network Address Translation) table, mapping the client’s private IP and port to a public IP and port.
+- The router creates an entry in the NAT (Network Address Translation) table, mapping the client’s private IP and port (`192.168.1.65:12345`) to a public IP and port (`27.34.108.XX:46789`). The DNS server IP and port are `8.8.8.8:53`.
 
 #### 6. DNS Recursive Resolver Query
 - If the record is not found in the router cache, the router forwards the DNS query to the ISP's DNS server.
@@ -48,7 +50,7 @@
 ### Router/Gateway (Router Public IP: 27.34.108.XX)
 
 #### 10. NAT Table Update
-- The router updates the NAT table with the private IP, private port, public IP, and public port.
+- The router updates the NAT table with the private IP (`192.168.1.65`), private port (`45678`), public IP (`27.34.108.XX`), and public port (`56789`). The destination IP and port are `142.250.207.238:443`.
 
 ### TCP Connection and TLS Handshake (Client, Router, Server)
 
@@ -91,18 +93,30 @@
 
 #### 22. TLS Success - Encrypted Channel Established
 - A secure TLS channel is established.
+- **Symmetric Key Storage (Client RAM)**: Both client and server generate the same symmetric key used for encryption and decryption of the data transmitted over this secure channel.
 
 #### 23. Encrypted HTTP Request
 - The client sends an encrypted HTTP request to the server.
 
+### Google Server Side (Google Server Public IP: 142.250.207.238)
+
 #### 24. Encrypted Request Processing
-- The server processes the encrypted request.
+- **Symmetric Key Storage (Server RAM)**: The server uses the symmetric key stored in its RAM to decrypt the incoming HTTP request.
+- The server processes the decrypted request.
 
 #### 25. Encrypted HTTP Response
 - The server sends an encrypted HTTP response back to the client.
 
+### Client Side (Client IP: 192.168.1.65)
+
 #### 26. Decrypt HTTP Response
-- The client decrypts the HTTP response and processes it to render the webpage.
+- The client decrypts the HTTP response using the symmetric key stored in its RAM.
+
+#### 27. Generate Markup with Style and Interactivity
+- The client processes the decrypted response, which typically contains HTML, CSS, and JavaScript, to generate markup with style and interactivity.
+
+#### 28. Render Page
+- The browser renders the webpage, displaying the content to the user.
 
 ### Additional Details:
 
@@ -113,8 +127,8 @@
 NAT (Network Address Translation) maps the client's private IP address to the router's public IP address, allowing multiple devices on the local network to access the internet using a single public IP address.
 
 **NAT Translation Example**:
-- **Private IP:Private Port**: `192.168.1.65:12345`
-- **Public IP:Public Port**: `27.34.108.XX:46789`
+- **Private IP:Private Port**: `192.168.1.65:45678`
+- **Public IP:Public Port**: `27.34.108.XX:56789`
 - **Destination IP:Destination Port**: `142.250.207.238:443`
 
 By following these steps, the browser successfully retrieves and renders the `google.com` webpage, ensuring a secure and efficient browsing experience.
