@@ -1,84 +1,184 @@
-
 # What Happens When We Type `google.com` and Press Enter in the Browser?
-![alt text](GoogleFlow.png)
-## URL Parsing and Validation
-1. The browser parses the URL and checks if it is valid.
-2. If valid, the browser generates the markup with style and interactivity and renders the page.
+![GoogleFlow](https://github.com/user-attachments/assets/650892db-407c-47c6-a200-7174840bfa01)
 
-## Operating System Cache
-3. The browser checks the operating system cache for a DNS (Domain Name System) record of `google.com`.
-4. If the cache contains the DNS record, it uses the IP address from the cache.
-5. If not, it proceeds to the next step.
+## 1. URL Parsing and Validation
+- The browser parses the URL to check if it is valid and determines the domain name to access.
 
-## Operating System Services
-6. The browser interacts with the operating system services to resolve the domain name.
+## 2. Browser Cache for DNS Record
+- The browser checks its cache for a DNS (Domain Name System) record of `google.com`.
 
-## DNS Lookup
-7. The operating system sends a DNS query to the DNS server configured on the client machine.
-8. Typically, the DNS server is the ISP's (Internet Service Provider) DNS server or a DNS server like Google DNS.
+## 3. OS Cache for DNS Record
+- If the DNS record is not found in the browser cache, the operating system cache is checked using operating system services.
 
-## Recursive DNS Resolver
-9. The ISP's DNS server acts as a recursive resolver, which means it will query other DNS servers on behalf of the client if it does not have the DNS record in its cache.
+## 4. DNS Query Process to Router
+- If the DNS record is not found in the OS cache, the client sends a DNS query to the router (Router/Gateway).
 
-## DNS Query Process
-10. The query first goes to the DNS Root Name Server.
-11. Then it goes to the TLD (Top-Level Domain) Name Server for `.com` domains.
-12. Finally, it goes to the Google Authoritative Name Server.
+## 5. Router Cache for DNS Record
+- The router checks its cache for the DNS record.
 
-## DNS Response
-13. The authoritative name server responds with the IP address for `google.com`.
+## 6. DNS Recursive Resolver Query
+- If the DNS record is not found in the router cache, the router forwards the DNS query to the configured DNS server (typically the ISP's DNS server).
 
-## DNS Cache Update
-14. The ISP DNS server caches this response for future queries.
-15. The client machine's operating system also caches the DNS response.
+## 6.1 DNS Root Name Server Query
+- The query is forwarded to the DNS Root Name Server.
 
-## TCP Connection Establishment
-16. The client initiates a TCP (Transmission Control Protocol) connection to the resolved IP address of `google.com`.
-17. A three-way handshake process starts:
-    - **SYN**: The client sends a SYN (synchronize) packet to the server.
-    - **SYN-ACK**: The server responds with a SYN-ACK (synchronize-acknowledge) packet.
-    - **ACK**: The client sends an ACK (acknowledge) packet, establishing the connection.
+## 6.2 DNS TLD Name Server Query
+- The query is forwarded to the TLD (Top-Level Domain) Name Server for `.com` domains.
 
-## TLS Handshake
-18. The client initiates a TLS (Transport Layer Security) handshake to secure the connection.
-19. Steps include:
-    - Client Hello, where the client sends a list of supported cipher suites.
-    - Server Hello, where the server selects a cipher suite and sends its certificate.
-    - Certificate validation by the client.
-    - Key exchange and encryption establishment.
+## 6.3 Google Authoritative Name Server Query
+- The query is forwarded to the Google Authoritative Name Server.
 
-## Encrypted HTTP Request
-20. Once the secure connection is established, the client sends an encrypted HTTP request to the server.
+## 7. DNS Resolution
+- The authoritative name server responds with the IP address for `google.com`.
 
-## Server Processing
-21. The server decrypts the HTTP request using the symmetric key established during the TLS handshake.
-22. The server processes the request and prepares a response.
+## 8. DNS Response to Router
+- The DNS response is sent back to the router.
 
-## Encrypted HTTP Response
-23. The server encrypts the HTTP response using the symmetric key and sends it back to the client.
+## 9. Router Cache Update
+- The router caches the DNS response.
 
-## Response Decryption
-24. The client decrypts the HTTP response using the symmetric key.
+## 10. DNS Response to Client
+- The router sends the DNS response back to the client.
 
-## Rendering the Web Page
-25. The browser processes the HTML, CSS, and JavaScript in the response and renders the webpage to the user.
+## 11. TCP Handshake Initiation
+- The client initiates a TCP (Transmission Control Protocol) connection to the resolved IP address of `google.com`.
+
+## 12. SYN Packet
+- The client sends a SYN (synchronize) packet to the server.
+
+## 13. SYN-ACK Packet
+- The server responds with a SYN-ACK (synchronize-acknowledge) packet.
+
+## 14. ACK Packet
+- The client sends an ACK (acknowledge) packet, establishing the TCP connection.
+
+## 15. TLS Handshake Initiation
+- The client initiates a TLS (Transport Layer Security) handshake to secure the connection.
+
+## 16. Client Hello
+- The client sends a Client Hello message, including a list of supported cipher suites and a random number.
+
+## 17. Server Hello
+- The server responds with a Server Hello message, selecting a cipher suite and sending its certificate along with a random number.
+
+## 18. Certificate Validation
+- The client validates the server's certificate against a list of trusted Certificate Authorities (CAs).
+
+## 19. Certificate Validation Success
+- If the certificate is valid, the client proceeds with the TLS handshake.
+
+## 20. Key Exchange and Change Cipher Spec
+- The client and server exchange keys and the client sends a Change Cipher Spec message, indicating that future messages will be encrypted.
+
+## 21. Finished Message
+- The client and server send Finished messages to each other, completing the TLS handshake.
+
+## 22. Encrypted HTTP Request
+- The client sends an encrypted HTTP request to the server.
+
+## 23. Encrypted HTTP Response
+- The server encrypts the HTTP response and sends it back to the client.
+
+## 24. Decrypt HTTP Response
+- The client decrypts the HTTP response using the symmetric key established during the TLS handshake.
+
+## 25. Process Decrypted Response
+- The client processes the decrypted HTTP response.
+
+## 26. Render Web Page
+- The browser generates markup with style and interactivity and renders the webpage to the user.
 
 ## Detailed Flow with Diagram Annotations
-1. **URL Parsing, Browser Cache Check (Client Side)**
-    - **1:** Browser parses the URL and checks the cache.
-    - **3:** If not found, checks the OS cache.
 
-2. **DNS Query (Client and DNS Servers)**
-    - **4-6.3:** DNS query is sent to the recursive resolver which queries root, TLD, and authoritative name servers.
+### Client Side (Client IP: 192.168.1.65)
+1. **URL Parsing and Validation**
+    - Browser parses the URL and checks if it's valid.
 
-3. **TCP Connection Establishment (Client and Router/Gateway)**
-    - **11-13:** SYN, SYN-ACK, ACK packets exchanged between client and server.
+2. **Browser Cache for DNS Record**
+    - Checks if `google.com` is in the browser cache.
 
-4. **TLS Handshake (Client and Router/Gateway)**
-    - **15-20:** TLS handshake steps including Client Hello, Server Hello, certificate validation, and key exchange.
+3. **OS Cache for DNS Record**
+    - Uses operating system services to check OS cache.
 
-5. **Encrypted HTTP Communication (Client, Router/Gateway, Server)**
-    - **21-24:** Encrypted HTTP request sent to the server and encrypted response received and decrypted.
+4. **DNS Query to Router**
+    - Sends DNS query to router if not found in caches.
 
-6. **Rendering and Final Display (Client Side)**
-    - **25-26:** Browser processes and renders the decrypted response.
+### Router/Gateway (Router Public IP: 27.34.108.XX)
+5. **Router Cache for DNS Record**
+    - Router checks its cache for the DNS record.
+
+6. **DNS Recursive Resolver Query**
+    - Forwards DNS query to ISP's DNS server if not found.
+
+6.1 **DNS Root Name Server Query**
+    - Query goes to DNS Root Name Server.
+
+6.2 **DNS TLD Name Server Query**
+    - Query goes to TLD Name Server for `.com`.
+
+6.3 **Google Authoritative Name Server Query**
+    - Query goes to Google's authoritative name server.
+
+7. **DNS Resolution**
+    - Google server responds with IP address `142.250.207.238`.
+
+8. **DNS Response to Router**
+    - Response sent back to the router.
+
+9. **Router Cache Update**
+    - Router caches the DNS response.
+
+10. **DNS Response to Client**
+    - Router sends DNS response to the client.
+
+### TCP Connection and TLS Handshake (Client, Router, Server)
+11. **TCP Handshake Initiation**
+    - Client initiates TCP connection to IP `142.250.207.238`.
+
+12. **SYN Packet**
+    - Client sends SYN packet to the server.
+
+13. **SYN-ACK Packet**
+    - Server responds with SYN-ACK packet.
+
+14. **ACK Packet**
+    - Client sends ACK packet, establishing connection.
+
+15. **TLS Handshake Initiation**
+    - Client starts TLS handshake for secure connection.
+
+16. **Client Hello**
+    - Client sends Client Hello with cipher suites.
+
+17. **Server Hello**
+    - Server responds with Server Hello and certificate.
+
+18. **Certificate Validation**
+    - Client validates server certificate.
+
+19. **Certificate Validation Success**
+    - If valid, TLS handshake proceeds.
+
+20. **Key Exchange and Change Cipher Spec**
+    - Keys are exchanged, and encryption is established.
+
+21. **Finished Message**
+    - Client and server send Finished messages.
+
+### HTTP Request and Response (Client, Router, Server)
+22. **Encrypted HTTP Request**
+    - Client sends encrypted HTTP request.
+
+23. **Encrypted HTTP Response**
+    - Server sends encrypted HTTP response.
+
+24. **Decrypt HTTP Response**
+    - Client decrypts HTTP response using symmetric key.
+
+25. **Process Decrypted Response**
+    - Client processes decrypted response.
+
+26. **Render Web Page**
+    - Browser renders the webpage to the user.
+
+This step-by-step explanation corresponds to the numbers in the image and provides a detailed overview of the process when you type `google.com` and press enter in the browser.
