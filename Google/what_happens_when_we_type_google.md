@@ -1,5 +1,4 @@
-# What Happens When You Type `google.com` and Press Enter
-
+# What Happens When We Type google.com and Press Enter in the Browser?
 ![GoogleFlow](https://github.com/user-attachments/assets/650892db-407c-47c6-a200-7174840bfa01)
 
 This document explains the detailed steps that occur from the moment you type `google.com` into your browser and press enter until the webpage is displayed. It covers network, DNS, TCP/IP, and HTTP/HTTPS concepts.
