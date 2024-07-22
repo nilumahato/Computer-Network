@@ -1,134 +1,93 @@
-
-# What Happens When We Type `google.com` and Press Enter in the Browser?
+# What Happens When You Type `google.com` and Press Enter
 
 ![GoogleFlow](https://github.com/user-attachments/assets/650892db-407c-47c6-a200-7174840bfa01)
 
-## Detailed Explanation of Each Step
+This document explains the detailed steps that occur from the moment you type `google.com` into your browser and press enter until the webpage is displayed. It covers network, DNS, TCP/IP, and HTTP/HTTPS concepts.
 
-### Client Side (Client IP: 192.168.1.65)
+## 1. URL Parsing and Validation
+- **URL Parsing**: When you type `google.com` in the browser, the browser parses the URL to identify the domain name. This process involves breaking down the URL into its components, such as the protocol (HTTP or HTTPS), host (google.com), path, query parameters, etc.
+- **Validation**: The browser checks if the URL is correctly formatted and whether it's a valid URL. If the URL is invalid, the browser displays an error message.
 
-#### 1. URL Parsing and Validation
-- The browser parses the URL `google.com` to ensure it is valid and identifies the domain name to be accessed.
+## 2. Browser Cache for DNS Record
+- **Browser Cache**: The browser checks its local cache to see if it has a recent DNS record for `google.com`. DNS records include the IP address of the server associated with the domain. If found, it uses this cached record to avoid repeating the DNS lookup process.
 
-#### 2. Browser Cache for DNS Record
-- Checks if `google.com` is already cached in the browser. If found, it skips further DNS lookups.
+## 3. OS Cache for DNS Record
+- **Operating System Cache**: If the browser cache doesn’t contain the DNS record, the browser requests the DNS record from the operating system. The OS maintains a DNS cache to speed up the resolution process for recently accessed domains.
 
-#### 3. OS Cache for DNS Record
-- If not found in the browser cache, the browser checks the operating system's DNS cache.
+## 4. Router Cache for DNS Record
+- **Router Cache**: If neither the browser nor the OS has the cached DNS record, the request is forwarded to the router. The router maintains its own DNS cache and may already have the necessary DNS record.
 
-### Router/Gateway (Router Public IP: 27.34.108.XX)
+## 5. NAT Table Entry Creation
+- **Network Address Translation (NAT)**: The router creates an entry in its NAT table, mapping the client’s internal private IP address and port (e.g., `192.168.1.65:12345`) to a public IP address and port (e.g., `27.34.108.XX:46789`). NAT allows multiple devices on a local network to share a single public IP address for internet access.
 
-#### 4. Router Cache for DNS Record
-- The router checks its own DNS cache for the domain name.
+## 6. DNS Recursive Resolver Query
+- **DNS Recursive Resolver**: If the router’s cache doesn’t have the record, it forwards the DNS query to the ISP’s DNS server. This server attempts to resolve the domain name by querying other DNS servers.
 
-#### 5. NAT Table Entry Creation
-- The router creates an entry in the NAT (Network Address Translation) table, mapping the client’s private IP and port (`192.168.1.65:12345`) to a public IP and port (`27.34.108.XX:46789`). The DNS server IP and port are `8.8.8.8:53`.
+### 6.1 DNS Root Name Server Query
+- **Root Name Server**: If the ISP’s DNS server can’t resolve the name, it queries a root DNS server. Root servers know the addresses of TLD (Top-Level Domain) servers (e.g., `.com`, `.org`).
 
-#### 6. DNS Recursive Resolver Query
-- If the record is not found in the router cache, the router forwards the DNS query to the ISP's DNS server.
+### 6.2 DNS TLD Name Server Query
+- **TLD Name Server**: The root server directs the query to the appropriate TLD name server, responsible for the `.com` domain.
 
-##### 6.1 DNS Root Name Server Query
-- The ISP's DNS server may query a DNS Root Name Server if it does not have the answer.
+### 6.3 Google Authoritative Name Server Query
+- **Authoritative Name Server**: The TLD server directs the query to Google’s authoritative name server, which has the final DNS record for `google.com`.
 
-##### 6.2 DNS TLD Name Server Query
-- The query goes to the TLD (Top-Level Domain) name server for `.com`.
+## 7. DNS Resolution
+- **Resolved Hostname to IP**: The authoritative name server returns the IP address for `google.com` (e.g., `142.250.207.238`). This IP address is sent back through the DNS hierarchy to the ISP’s DNS server.
 
-##### 6.3 Google Authoritative Name Server Query
-- The query is forwarded to Google's authoritative name server for `google.com`.
+## 8. DNS Response
+- **DNS Response**: The ISP’s DNS server sends the resolved IP address back to the router, which forwards it to the client’s operating system and ultimately to the browser.
 
-#### 7. DNS Resolution
-- The authoritative name server resolves `google.com` to its IP address (`142.250.207.238`).
+## 9. Initialize TCP Connection
+- **TCP Connection Initiation**: With the IP address obtained, the client’s browser initiates a TCP connection to `142.250.207.238`. TCP (Transmission Control Protocol) ensures reliable, ordered, and error-checked delivery of data.
 
-#### 8. DNS Response
-- The DNS server sends the resolved IP address back to the router.
+## 10. NAT Table Update
+- **NAT Update**: The router updates its NAT table to reflect the mapping from the client’s private IP and port to the public IP and port and the destination IP and port.
 
-### Client Side (Client IP: 192.168.1.65)
+## 11-13. TCP Handshake (Client, Router, Server)
+- **11. SYN Packet**: The client sends a SYN (synchronize) packet to the server to start the TCP handshake. This packet includes a sequence number.
+- **12. SYN-ACK Packet**: The server responds with a SYN-ACK (synchronize-acknowledge) packet, acknowledging the client’s sequence number and sending its own.
+- **13. ACK Packet**: The client responds with an ACK (acknowledge) packet, acknowledging the server’s sequence number. This completes the three-way handshake, establishing a TCP connection.
 
-#### 9. Initialize TCP Connection
-- The client starts a TCP connection to the IP address `142.250.207.238`.
+## 14. TCP Connection Established
+- **TCP Connection**: The connection is now established, allowing data to be transmitted between the client and server reliably.
 
-### Router/Gateway (Router Public IP: 27.34.108.XX)
+## 15. TLS Handshake Initiation
+- **TLS Handshake**: To secure the communication, the client initiates a TLS handshake. TLS (Transport Layer Security) ensures that the data exchanged is encrypted and secure.
 
-#### 10. NAT Table Update
-- The router updates the NAT table with the private IP (`192.168.1.65`), private port (`45678`), public IP (`27.34.108.XX`), and public port (`56789`). The destination IP and port are `142.250.207.238:443`.
+## 16. Client Hello
+- **Client Hello**: The client sends a "Client Hello" message to the server, which includes information about supported cipher suites, TLS version, and a randomly generated value.
 
-### TCP Connection and TLS Handshake (Client, Router, Server)
+## 17. Server Hello
+- **Server Hello**: The server responds with a "Server Hello" message, including its chosen cipher suite, TLS version, a randomly generated value, and its digital certificate.
 
-#### 11. TCP Handshake - SYN Packet
-- The client sends a SYN (synchronize) packet to the server.
+## 18. Certificate Validation
+- **Certificate Validation**: The client validates the server’s digital certificate against its list of trusted Certificate Authorities (CAs). This step ensures that the server is legitimate and not an imposter.
 
-#### 12. TCP Handshake - SYN-ACK Packet
-- The server responds with a SYN-ACK (synchronize-acknowledge) packet.
+## 19. Certificate Validation Success
+- **Validation Success**: If the certificate is valid, the handshake continues. If not, the client aborts the connection.
 
-#### 13. TCP Handshake - ACK Packet
-- The client sends an ACK (acknowledge) packet, completing the three-way handshake.
+## 20-21. Key Exchange and Change Cipher Spec
+- **20. Key Exchange**: The client and server exchange keys using the previously agreed-upon method (e.g., Diffie-Hellman). The client then sends a "Change Cipher Spec" message to switch to encrypted communication, followed by a "Finished" message.
+- **21. Change Cipher Spec and Finished**: The server responds with its own "Change Cipher Spec" and "Finished" messages, completing the TLS handshake.
 
-#### 14. TCP Connection Established
-- The TCP connection is established between the client and server.
+## 22. TLS Success - Encrypted Channel Established
+- **Encrypted Channel**: A secure, encrypted channel is now established between the client and server, using symmetric encryption for data transmission.
 
-#### 15. TLS Handshake Initiation
-- The client initiates a TLS (Transport Layer Security) handshake to secure the communication.
+## 23. Encrypted HTTP Request
+- **Encrypted Request**: The client sends an encrypted HTTP request over the secure channel. This request might be an HTTP GET request for the homepage of `google.com`.
 
-#### 16. Client Hello
-- The client sends a Client Hello message, which includes supported cipher suites and a client random value.
+## 24-25. Encrypted HTTP Response
+- **24. Encrypted Response**: The server processes the request and sends back an encrypted HTTP response, containing the requested webpage data.
+- **25. Decrypt HTTP Response**: The client decrypts the HTTP response using the symmetric key established during the TLS handshake.
 
-### Google Server Side (Google Server Public IP: 142.250.207.238)
+## 26-28. Rendering the Webpage
+- **26. Generate Markup**: The client’s browser generates markup from the response, which includes HTML, CSS, and JavaScript.
+- **27. Render Page**: The browser processes the markup and renders the webpage, displaying the content to the user.
+- **28. Additional Resources**: The browser may need to make additional requests to load other resources like images, scripts, and stylesheets, repeating the DNS, TCP, and TLS steps as necessary.
 
-#### 17. Server Hello
-- The server responds with a Server Hello message, server random value, and its digital certificate.
+## Additional Details: NAT and DNS
+- **NAT (Network Address Translation)**: NAT translates private IP addresses to a public IP address, allowing multiple devices on a local network to share a single public IP. This is crucial for conserving public IP addresses and providing security by hiding internal network structure.
+- **DNS (Domain Name System)**: DNS translates human-readable domain names (e.g., google.com) into IP addresses that computers use to identify each other on the network. It involves a hierarchical structure with root servers, TLD servers, and authoritative servers to resolve domain names efficiently.
 
-#### 18. Certificate Validation
-- The client validates the server's certificate against its list of trusted Certificate Authorities (CAs).
-
-#### 19. Certificate Validation Success
-- If the certificate is valid, the TLS handshake proceeds.
-
-#### 20. Key Exchange and Change Cipher Spec
-- The client sends a Client Key Exchange message, followed by Change Cipher Spec and Finished messages.
-
-#### 21. Change Cipher Spec and Finished
-- The server responds with its Change Cipher Spec and Finished messages.
-
-### Encrypted HTTP Request and Response
-
-#### 22. TLS Success - Encrypted Channel Established
-- A secure TLS channel is established.
-- **Symmetric Key Storage (Client RAM)**: Both client and server generate the same symmetric key used for encryption and decryption of the data transmitted over this secure channel.
-
-#### 23. Encrypted HTTP Request
-- The client sends an encrypted HTTP request to the server.
-
-### Google Server Side (Google Server Public IP: 142.250.207.238)
-
-#### 24. Encrypted Request Processing
-- **Symmetric Key Storage (Server RAM)**: The server uses the symmetric key stored in its RAM to decrypt the incoming HTTP request.
-- The server processes the decrypted request.
-
-#### 25. Encrypted HTTP Response
-- The server sends an encrypted HTTP response back to the client.
-
-### Client Side (Client IP: 192.168.1.65)
-
-#### 26. Decrypt HTTP Response
-- The client decrypts the HTTP response using the symmetric key stored in its RAM.
-
-#### 27. Generate Markup with Style and Interactivity
-- The client processes the decrypted response, which typically contains HTML, CSS, and JavaScript, to generate markup with style and interactivity.
-
-#### 28. Render Page
-- The browser renders the webpage, displaying the content to the user.
-
-### Additional Details:
-
-#### Network Address Translation (NAT)
-- **Private IP (Client)**: `192.168.1.65`
-- **Public IP (Router)**: `27.34.108.XX`
-
-NAT (Network Address Translation) maps the client's private IP address to the router's public IP address, allowing multiple devices on the local network to access the internet using a single public IP address.
-
-**NAT Translation Example**:
-- **Private IP:Private Port**: `192.168.1.65:45678`
-- **Public IP:Public Port**: `27.34.108.XX:56789`
-- **Destination IP:Destination Port**: `142.250.207.238:443`
-
-By following these steps, the browser successfully retrieves and renders the `google.com` webpage, ensuring a secure and efficient browsing experience.
+By following these steps, the browser successfully retrieves and displays the `google.com` webpage, ensuring a secure and efficient user experience.
