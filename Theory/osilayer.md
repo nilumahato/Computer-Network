@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## Question 1: What layer controls the wires?
 
 ### Answer
