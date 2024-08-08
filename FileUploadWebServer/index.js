@@ -7,7 +7,8 @@ import { fileURLToPath } from "url";
 function handleFileUpload(req, res) {
     // Get the boundary from the content-type header
     const boundary = getBoundary(req.headers['content-type']);
-   
+    // boundary -> ------WebKitFormBoundaryQ7yq6ojwLfE0qATs something like this
+
     let rawData = '';
     req.on('data', (chunk) => {
         rawData += chunk;
@@ -17,7 +18,9 @@ function handleFileUpload(req, res) {
     req.on('end', () => {
         // Split the raw data into parts using the boundary
         const parts = rawData.split(boundary).filter(part => part.trim() !== '--' && part.trim() !== '');
+        
         // Find the part that contains the file
+        // gives the boolean value
         const filePart = parts.find(part => part.includes('filename'));
 
         // If the file part is found
@@ -32,18 +35,22 @@ function handleFileUpload(req, res) {
 
             // Get the current directory
             const __filename = fileURLToPath(import.meta.url);
+            console.log(__filename)
             const __dirname = path.dirname(__filename);
+            console.log(__dirname)
 
             if(!fs.existsSync(path.join(__dirname, 'uploads'))){
                 fs.mkdirSync(path.join(__dirname, 'uploads'));
             }
             // Create the file path
-            const filepath = path.join(__dirname, 'uploads', filename);
+            const filepath = path.join(__dirname, 'uploads',filename);
+            console.log("Filepath: ",filepath)
 
 
             // Write the file to the uploads directory
             fs.writeFile(filepath, fileData, 'binary', (err) => {
                 if (err) {
+                    console.log(err);
                     res.statusCode = 500;
                     res.end('Internal Server Error');
                     return;
