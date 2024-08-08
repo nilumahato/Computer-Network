@@ -1,1 +1,7 @@
-Notes  : https://mero-network-notes.notion.site/Network-0fd19344a9a040c09b9933f0989fbeac
+# Assignments For Computer Network BCT IV / I
+### Members :<br/>
+Aarati  Mahato   (PAS077BCT001)  <br/>
+Ashim   Karki    (PAS077BCT012) <br/>
+Niraj   Neupane  (PAS077BCT023) <br/>
+Prayash Mishra   (PAS077BCT027)
+
